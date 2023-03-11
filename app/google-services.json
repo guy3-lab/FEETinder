@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "822391395707",
+    "project_id": "feetinder-faed0",
+    "storage_bucket": "feetinder-faed0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822391395707:android:a425f1217ed25a2e7919de",
+        "android_client_info": {
+          "package_name": "com.idk.feetinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822391395707-431uh8hej4f6deqmqn377c6ta7ff4qqa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.idk.feetinder",
+            "certificate_hash": "e9576f414a3299a8f73f5fad9a72d90cc82eab91"
+          }
+        },
+        {
+          "client_id": "822391395707-v8boa0rkacv9h0c0v3vqfbu4v2ctp2pr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7lGBM0tbqpefof_CRoOZbYYrvNLq3V5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822391395707-v8boa0rkacv9h0c0v3vqfbu4v2ctp2pr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
