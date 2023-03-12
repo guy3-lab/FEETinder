@@ -4,25 +4,32 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
-    View card;
-    TextView cardText;
-    int cardNum = 1;
-    boolean homeTaken = false;
-    float xDown = 0;
-    float xHomeCard;
-    float xHomeText;
-    final int SWIPE_THRESHOLD = 350;
+    private View card;
+    private Button logOut;
+    private TextView cardText;
+    private int cardNum = 1;
+    private boolean homeTaken = false;
+    private float xDown = 0;
+    private float xHomeCard;
+    private float xHomeText;
+    private final int SWIPE_THRESHOLD = 350;
+
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +39,18 @@ public class MainActivity extends AppCompatActivity {
 
         card = findViewById(R.id.card_box);
         cardText = findViewById(R.id.card_text);
+        logOut = findViewById(R.id.log_out_placeholder);
+        auth = FirebaseAuth.getInstance();
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         ObjectAnimator animationCard = ObjectAnimator.ofFloat(card, "translationX", screenSize);
         animationCard.setDuration(250);
