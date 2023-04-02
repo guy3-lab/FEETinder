@@ -9,6 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.FeeTinder">
         <activity
+            android:name=".GetUserInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GetUserBioActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity

@@ -1,5 +1,6 @@
 package com.idk.feetinder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
@@ -12,16 +13,25 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
 
     private View card;
     private Button logOut;
     private TextView cardText;
+    private TextView greeting;
+    private ImageButton profile;
+
     private int cardNum = 1;
     private boolean homeTaken = false;
     private float xDown = 0;
@@ -40,7 +50,27 @@ public class MainActivity extends AppCompatActivity {
         card = findViewById(R.id.card_box);
         cardText = findViewById(R.id.card_text);
         logOut = findViewById(R.id.log_out_placeholder);
+        greeting = findViewById(R.id.greeting);
+        profile = findViewById(R.id.profile);
+
         auth = FirebaseAuth.getInstance();
+
+        String userId = auth.getCurrentUser().getUid();
+        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference();
+
+        currentUserDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = (String) snapshot.child("Users").child(userId).child("Name").getValue();
+
+                greeting.setText("Hello " + name + "!");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "read failed: " + error.getCode(), Toast.LENGTH_SHORT);
+            }
+        });
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +79,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, LoginRegisterActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, GetUserBioActivity.class);
+                startActivity(intent);
             }
         });
 
