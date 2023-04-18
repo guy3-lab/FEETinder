@@ -1,0 +1,13 @@
+
+<resources>
+    <attr name="colorPinks" format="color" />
+    <attr name="colorOnPinks" format="color" />
+    <attr name="colorPinksContainer" format="color" />
+    <attr name="colorOnPinksContainer" format="color" />
+    <attr name="harmonizePinks" format="boolean" />
+    <attr name="colorCustomColor2" format="color" />
+    <attr name="colorOnCustomColor2" format="color" />
+    <attr name="colorCustomColor2Container" format="color" />
+    <attr name="colorOnCustomColor2Container" format="color" />
+    <attr name="harmonizeCustomColor2" format="boolean" />
+</resources>

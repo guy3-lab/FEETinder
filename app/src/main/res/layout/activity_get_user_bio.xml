@@ -11,10 +11,10 @@
         android:id="@+id/enter_name"
         android:layout_width="282dp"
         android:layout_height="67dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="224dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="Your Name"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,6 +56,16 @@
         app:layout_constraintBottom_toTopOf="@+id/enter_name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.307" />
+        app:layout_constraintVertical_bias="0.147" />
+
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="161dp"
+        android:layout_height="160dp"
+        app:layout_constraintBottom_toTopOf="@+id/enter_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/defaultpfp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

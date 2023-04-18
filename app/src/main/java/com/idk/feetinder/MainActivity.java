@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -27,8 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
 
     private View card;
+    private View backCard;
     private Button logOut;
     private TextView cardText;
+
     private TextView greeting;
     private ImageButton profile;
 
@@ -48,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         int screenSize = getScreenWidth(MainActivity.this);
 
         card = findViewById(R.id.card_box);
+        backCard = findViewById(R.id.card_behind);
         cardText = findViewById(R.id.card_text);
         logOut = findViewById(R.id.log_out_placeholder);
         greeting = findViewById(R.id.greeting);
@@ -101,14 +106,14 @@ public class MainActivity extends AppCompatActivity {
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch(motionEvent.getActionMasked()){
                     case MotionEvent.ACTION_UP:
-                        if(card.getX() >= (xHomeCard +SWIPE_THRESHOLD)){
+                        if(card.getX() >= (xHomeCard +SWIPE_THRESHOLD)){ // swipe right
                             animationCard.setFloatValues(screenSize);
                             animationText.setFloatValues(screenSize);
                             animationCard.start();
                             animationText.start();
                             cardNum++;
                             cardText.setText("CARD " + cardNum);
-                        } else if((card.getX() + SWIPE_THRESHOLD) <= xHomeCard){
+                        } else if((card.getX() + SWIPE_THRESHOLD) <= xHomeCard){ // swipe left
                             animationCard.setFloatValues(screenSize*-1);
                             animationText.setFloatValues(screenSize*-1);
                             animationCard.start();
@@ -150,6 +155,14 @@ public class MainActivity extends AppCompatActivity {
                         card.setX(card.getX() + xDistance);
                         cardText.setX(cardText.getX() + xDistance);
 
+                        if(card.getX() >= xHomeCard){ // lean right
+                            backCard.setBackgroundColor(Color.parseColor("#2fad39"));
+                        } else if(card.getX() <= xHomeCard){ // lean left
+                            backCard.setBackgroundColor(Color.parseColor("#ad2f2f"));
+                        } else {
+                            backCard.setBackgroundColor(Color.parseColor("#e8dab3"));
+                        }
+
                         break;
 
                 }
@@ -158,7 +171,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick() {
-                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                ProfileDialog profileDialog = new ProfileDialog(MainActivity.this);
+                profileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                profileDialog.showDialog();
             }
         });
     }
