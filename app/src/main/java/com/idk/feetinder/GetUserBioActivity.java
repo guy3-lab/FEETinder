@@ -1,3 +1,4 @@
+// Catherine
 package com.idk.feetinder;
 
 import androidx.activity.result.ActivityResult;
@@ -69,6 +70,7 @@ public class GetUserBioActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String existingName = (String) snapshot.child("Users").child(userId).child("Name").getValue();
                 String existingBio = (String) snapshot.child("Users").child(userId).child("Bio").getValue();
+                //System.out.println("BOBA uri: " + (String) snapshot.child("Users").child(userId).child("ProfilePicture").getValue());
 
                 if(existingName != null){
                     enterName.setText(existingName);
@@ -79,6 +81,7 @@ public class GetUserBioActivity extends AppCompatActivity {
                 if(existingBio != null){
                     enterBio.setText(existingBio);
                 }
+
 
                 /* Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -123,11 +126,15 @@ public class GetUserBioActivity extends AppCompatActivity {
                     DatabaseReference currentUserBio = FirebaseDatabase.getInstance().getReference()
                             .child("Users").child(userId).child("Bio");
 
-                    //DatabaseReference currentUserPfp = FirebaseDatabase.getInstance().getReference()
-                            //.child("Users").child(userId).child("ProfilePicture");
+                    /* DatabaseReference currentUserPfp = FirebaseDatabase.getInstance().getReference()
+                            .child("Users").child(userId).child("ProfilePicture");
+
+                    currentUserPfp.setValue(imageUri.toString()); */
 
                     currentUserBio.setValue(bio);
-                    //currentUserPfp.setValue(imageUri.toString());
+
+
+                    //System.out.println("BOBA real uri: " + imageUri.toString());
 
                     Intent intent = new Intent(GetUserBioActivity.this, MainActivity.class);
                     startActivity(intent);

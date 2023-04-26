@@ -1,3 +1,4 @@
+// Catherine
 package com.idk.feetinder;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -46,7 +47,7 @@ public class GetUserInfoActivity extends AppCompatActivity {
 
                 currentUserGender.setValue(checkedButton.getText());
 
-                Intent intent = new Intent(GetUserInfoActivity.this, GetUserBioActivity.class);
+                Intent intent = new Intent(GetUserInfoActivity.this, UserQuestionnaireActivity.class);
                 startActivity(intent);
                 finish();
             }

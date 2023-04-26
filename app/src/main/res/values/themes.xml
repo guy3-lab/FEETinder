@@ -1,3 +1,4 @@
+<!-- Aadya -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.FeeTinder" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
@@ -83,4 +84,10 @@
             @drawable/background_splashscreen
         </item>
     </style>
+    <style name="Theme.FeeTinder.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.FeeTinder.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.FeeTinder.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
