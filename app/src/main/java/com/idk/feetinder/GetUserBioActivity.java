@@ -46,6 +46,8 @@ public class GetUserBioActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private StorageReference storageReference;
 
+    private boolean isFirstTime = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +76,7 @@ public class GetUserBioActivity extends AppCompatActivity {
 
                 if(existingName != null){
                     enterName.setText(existingName);
+                    isFirstTime = false;
                 } else {
                     back.setVisibility(View.INVISIBLE);
                 }
@@ -136,9 +139,13 @@ public class GetUserBioActivity extends AppCompatActivity {
 
                     //System.out.println("BOBA real uri: " + imageUri.toString());
 
-                    Intent intent = new Intent(GetUserBioActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish();
+                    if(!isFirstTime){
+                        finish();
+                    } else {
+                        Intent intent = new Intent(GetUserBioActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
                 }
             }
         });

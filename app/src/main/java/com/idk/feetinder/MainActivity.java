@@ -2,6 +2,7 @@
 package com.idk.feetinder;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.animation.ObjectAnimator;
@@ -21,11 +22,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.Deque;
+import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -36,15 +41,18 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView greeting;
     private ImageButton profile;
-
-    private int cardNum = 1;
     private boolean homeTaken = false;
+    private boolean isFirstCard = true;
     private float xDown = 0;
     private float xHomeCard;
     private float xHomeText;
     private final int SWIPE_THRESHOLD = 350;
 
     private FirebaseAuth auth;
+
+    Deque<String> usersToSwipe;
+    String currentMatchId;
+    String userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,8 +69,11 @@ public class MainActivity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        String userId = auth.getCurrentUser().getUid();
+        userId = auth.getCurrentUser().getUid();
         DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference();
+
+        usersToSwipe = new LinkedList<String>();
+        getPotentialMatches();
 
         currentUserDb.addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,76 +116,106 @@ public class MainActivity extends AppCompatActivity {
         card.setOnTouchListener(new OnSwipeTouchListener(MainActivity.this){
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch(motionEvent.getActionMasked()){
-                    case MotionEvent.ACTION_UP:
-                        if(card.getX() >= (xHomeCard +SWIPE_THRESHOLD)){ // swipe right
-                            animationCard.setFloatValues(screenSize);
-                            animationText.setFloatValues(screenSize);
-                            animationCard.start();
-                            animationText.start();
-                            cardNum++;
-                            cardText.setText("CARD " + cardNum);
-                        } else if((card.getX() + SWIPE_THRESHOLD) <= xHomeCard){ // swipe left
-                            animationCard.setFloatValues(screenSize*-1);
-                            animationText.setFloatValues(screenSize*-1);
-                            animationCard.start();
-                            animationText.start();
-                            cardNum--;
-                            cardText.setText("CARD " + cardNum);
-                        }
+                if(currentMatchId != null || isFirstCard){
+                    switch(motionEvent.getActionMasked()){
+                        case MotionEvent.ACTION_UP:
+                            if(card.getX() >= (xHomeCard +SWIPE_THRESHOLD)){ // swipe right
+                                animationCard.setFloatValues(screenSize);
+                                //animationText.setFloatValues(screenSize);
+                                animationCard.start();
+                                //animationText.start();
+                            } else if((card.getX() + SWIPE_THRESHOLD) <= xHomeCard){ // swipe left
+                                animationCard.setFloatValues(screenSize*-1);
+                                //animationText.setFloatValues(screenSize*-1);
+                                animationCard.start();
+                                //animationText.start();
+                            }
 
-                        if(animationCard.isRunning()){
-                            Utils.delay(500, new Utils.DelayCallback() {
-                                @Override
-                                public void afterDelay() {
-                                    animationCard.end();
-                                    animationText.end();
-                                    card.setX(xHomeCard);
-                                    cardText.setX(xHomeText);
-                                }
-                            });
-                        }
+                            if(animationCard.isRunning()){
+                                Utils.delay(500, new Utils.DelayCallback() {
+                                    @Override
+                                    public void afterDelay() {
+                                        if(isFirstCard){
+                                            isFirstCard = false;
+                                        }
+                                        getNextProfile();
+                                        animationCard.end();
+                                        //animationText.end();
+                                        card.setX(xHomeCard);
+                                        //cardText.setX(xHomeText);
+                                    }
+                                });
+                            }
 
-                        card.setX(xHomeCard);
-                        cardText.setX(xHomeText);
-                        break;
+                            card.setX(xHomeCard);
+                            //cardText.setX(xHomeText);
+                            break;
 
-                    case MotionEvent.ACTION_DOWN:
-                        if(!homeTaken){
-                            xHomeCard = card.getX();
-                            xHomeText = cardText.getX();
-                            homeTaken = true;
-                        }
+                        case MotionEvent.ACTION_DOWN:
+                            if(!homeTaken){
+                                xHomeCard = card.getX();
+                                xHomeText = cardText.getX();
+                                homeTaken = true;
+                            }
 
-                        xDown = motionEvent.getX();
-                        break;
+                            xDown = motionEvent.getX();
+                            break;
 
-                    case MotionEvent.ACTION_MOVE:
-                        float xMoved = motionEvent.getX();
-                        float xDistance = xMoved- xDown;
+                        case MotionEvent.ACTION_MOVE:
+                            float xMoved = motionEvent.getX();
+                            float xDistance = xMoved- xDown;
 
-                        card.setX(card.getX() + xDistance);
-                        cardText.setX(cardText.getX() + xDistance);
+                            card.setX(card.getX() + xDistance);
+                            //cardText.setX(cardText.getX() + xDistance);
 
-                        if(card.getX() >= xHomeCard){ // lean right
-                            backCard.setBackgroundColor(Color.parseColor("#2fad39"));
-                        } else if(card.getX() <= xHomeCard){ // lean left
-                            backCard.setBackgroundColor(Color.parseColor("#ad2f2f"));
-                        } else {
-                            backCard.setBackgroundColor(Color.parseColor("#e8dab3"));
-                        }
+                            if(card.getX() >= xHomeCard){ // lean right
+                                backCard.setBackgroundColor(Color.parseColor("#2fad39"));
+                            } else if(card.getX() <= xHomeCard){ // lean left
+                                backCard.setBackgroundColor(Color.parseColor("#ad2f2f"));
+                            } else {
+                                backCard.setBackgroundColor(Color.parseColor("#e8dab3"));
+                            }
 
-                        break;
+                            break;
 
+                    }
                 }
                 return super.onTouch(view, motionEvent);
             }
 
             @Override
             public void onClick() {
-                ProfileDialog profileDialog = new ProfileDialog(MainActivity.this);
-                profileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                profileDialog.showDialog();
+                if(currentMatchId != null){
+                    ProfileDialog profileDialog = new ProfileDialog(MainActivity.this, currentMatchId);
+                    profileDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                    profileDialog.showDialog();
+                }
+            }
+        });
+    }
+
+    private void getPotentialMatches() {
+        DatabaseReference potentialMatchDb = FirebaseDatabase.getInstance().getReference().child("Users");
+        potentialMatchDb.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                if(snapshot.exists()){
+                    if(!snapshot.getKey().equals(userId)){
+                        usersToSwipe.add(snapshot.getKey());
+                    }
+                }
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            }
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
     }
@@ -186,5 +227,37 @@ public class MainActivity extends AppCompatActivity {
         display.getMetrics(metrics);
 
         return metrics.widthPixels;
+    }
+
+    private void getNextProfile(){ // display next user for swiping
+        currentMatchId = usersToSwipe.poll();
+
+        if(isFirstCard){
+            return;
+        }
+
+        if(currentMatchId == null){
+            cardText.setText("No matches at this time!");
+            return;
+        }
+
+        while(currentMatchId.equals(userId) || currentMatchId.equals("Uid")){
+            currentMatchId = usersToSwipe.poll();
+        }
+
+        DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference();
+        currentUserDb.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) { // initial card display
+                if(currentMatchId != null){
+                    cardText.setText((String) snapshot.child("Users").child(currentMatchId).child("Name").getValue());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Toast.makeText(MainActivity.this, "read failed: " + error.getCode(), Toast.LENGTH_SHORT);
+            }
+        });
     }
 }
