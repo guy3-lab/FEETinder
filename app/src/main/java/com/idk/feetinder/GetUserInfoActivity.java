@@ -25,6 +25,7 @@ public class GetUserInfoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_user_info);
+        getSupportActionBar().hide();
 
         genderSelect = findViewById(R.id.gender_select);
         continueButton = findViewById(R.id.continueButton);

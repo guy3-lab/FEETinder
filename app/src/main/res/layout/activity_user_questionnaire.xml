@@ -1,81 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Aadya -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_light_errorContainer"
     android:padding="24dp"
     tools:context=".MainActivity">
 
+
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/profile_questions"
-        android:text="Profile Questions"
-        android:layout_centerHorizontal="true"
-        android:textSize="20dp"/>
-
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/question"
+        android:layout_marginBottom="-9dp"
+        android:fontFamily="@font/aloevera"
+        android:text="questions"
+        android:textColor="@color/md_theme_light_onSecondaryContainer"
+        android:textSize="75sp" />
+
+    <TextView
         android:id="@+id/question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@id/choices_layout"
-        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="3dp"
+        android:fontFamily="@font/quackey"
         android:text="This will be the question"
         android:textAlignment="center"
-        android:textSize="24dp" />
+        android:textColor="@color/md_theme_light_onSecondaryContainer"
+        android:textSize="24sp" />
 
     <LinearLayout
+        android:id="@+id/choices_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/choices_layout"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/ans_A"
-            android:layout_margin="5dp"
-            android:text="Ans A"/>
-
-        <Button
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/quackey"
+            android:text="Ans A"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/md_theme_light_errorContainer"
+            app:backgroundTint="@color/md_theme_light_onSecondaryContainer" />
+
+        <Button
             android:id="@+id/ans_B"
-            android:layout_margin="5dp"
-            android:text="Ans B"/>
-
-        <Button
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="@font/quackey"
+            android:text="Ans B"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/md_theme_light_errorContainer"
+            app:backgroundTint="@color/md_theme_light_onSecondaryContainer" />
+
+        <Button
             android:id="@+id/ans_C"
-            android:layout_margin="5dp"
-            android:text="Ans C"/>
-
-        <Button
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/quackey"
+            android:text="Ans C"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/md_theme_light_errorContainer"
+            app:backgroundTint="@color/md_theme_light_onSecondaryContainer" />
+
+        <Button
             android:id="@+id/ans_D"
-            android:layout_margin="5dp"
-            android:text="Ans D"/>
-
-        <Button
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ans_E"
             android:layout_margin="5dp"
-            android:text="Ans E"/>
+            android:fontFamily="@font/quackey"
+            android:text="Ans D"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/md_theme_light_errorContainer"
+            app:backgroundTint="@color/md_theme_light_onSecondaryContainer" />
+
+        <Button
+            android:id="@+id/ans_E"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/quackey"
+            android:text="Ans E"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textColor="@color/md_theme_light_errorContainer"
+            app:backgroundTint="@color/md_theme_light_onSecondaryContainer" />
 
     </LinearLayout>
 
     <Button
+        android:fontFamily="@font/quackey"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/submit_btn"
         android:layout_below="@id/choices_layout"
-        android:backgroundTint="@color/md_theme_dark_shadow"
+        app:backgroundTint="@color/md_theme_light_onSecondaryContainer"
         android:layout_marginTop="20dp"
         android:text="Submit"/>
 

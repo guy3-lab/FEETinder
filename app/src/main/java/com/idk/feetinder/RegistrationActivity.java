@@ -33,6 +33,7 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        getSupportActionBar().hide();
 
         auth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -57,14 +58,19 @@ public class RegistrationActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String userEmail = email.getText().toString();
                 String userPass = password.getText().toString();
-                auth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
-                            Toast.makeText(RegistrationActivity.this, "couldn't sign up", Toast.LENGTH_SHORT).show();
+
+                if(userEmail.isEmpty() || userPass.isEmpty()){
+                    Toast.makeText(RegistrationActivity.this, "enter stuff", Toast.LENGTH_SHORT).show();
+                } else {
+                    auth.createUserWithEmailAndPassword(userEmail, userPass).addOnCompleteListener(RegistrationActivity.this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(!task.isSuccessful()){
+                                Toast.makeText(RegistrationActivity.this, "couldn't sign up", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 

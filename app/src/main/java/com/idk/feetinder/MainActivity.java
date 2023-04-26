@@ -21,6 +21,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -36,11 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
     private View card;
     private View backCard;
-    private Button logOut;
+    private TextView logOut;
     private TextView cardText;
 
     private TextView greeting;
-    private ImageButton profile;
+    private TextView profile;
     private boolean homeTaken = false;
     private boolean isFirstCard = true;
     private float xDown = 0;
@@ -54,18 +56,22 @@ public class MainActivity extends AppCompatActivity {
     String currentMatchId;
     String userId;
 
+    BottomAppBar bottomAppBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         int screenSize = getScreenWidth(MainActivity.this);
+        getSupportActionBar().hide();
 
+        bottomAppBar = findViewById(R.id.bottomAppBar);
         card = findViewById(R.id.card_box);
         backCard = findViewById(R.id.card_behind);
         cardText = findViewById(R.id.card_text);
-        logOut = findViewById(R.id.log_out_placeholder);
+        logOut = bottomAppBar.findViewById(R.id.log_out);
         greeting = findViewById(R.id.greeting);
-        profile = findViewById(R.id.profile);
+        profile = bottomAppBar.findViewById(R.id.home_button);
 
         auth = FirebaseAuth.getInstance();
 
@@ -80,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String name = (String) snapshot.child("Users").child(userId).child("Name").getValue();
 
-                greeting.setText("Hello " + name + "!");
+                greeting.setText(name + "'s Matches!");
             }
 
             @Override

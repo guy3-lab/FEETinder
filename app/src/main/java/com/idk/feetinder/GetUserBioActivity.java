@@ -52,6 +52,7 @@ public class GetUserBioActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_get_user_bio);
+        getSupportActionBar().hide();
 
         finishButton = findViewById(R.id.finish);
         enterName = findViewById(R.id.enter_name);

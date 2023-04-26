@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Aadya -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/md_theme_light_secondaryContainer"
     tools:context=".RegistrationActivity">
 
     <Button
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/Widget.Material3.Button.TonalButton"
+        app:strokeWidth = "3dp"
+        app:strokeColor = "@color/md_theme_light_onSecondaryContainer"
+        android:fontFamily="@font/quackey"
+        android:textAppearance="?android:textAppearanceMedium"
         android:layout_marginStart="16dp"
         android:text="back"
         app:layout_constraintBottom_toTopOf="@+id/email_login"
@@ -21,12 +28,12 @@
         android:id="@+id/email_login"
         android:layout_width="355dp"
         android:layout_height="53dp"
-        android:layout_marginTop="160dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
+        android:layout_marginTop="232dp"
+        android:ems="15"
+        android:fontFamily="@font/quackey"
         android:hint="username"
+        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.714"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,26 +41,58 @@
         android:id="@+id/password_login"
         android:layout_width="355dp"
         android:layout_height="53dp"
-        android:layout_marginTop="32dp"
-        android:ems="10"
-        android:inputType="textPassword"
+        android:layout_marginTop="20dp"
+        android:ems="15"
+        android:fontFamily="@font/quackey"
         android:hint="password"
+        android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.714"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_login" />
 
     <Button
         android:id="@+id/login"
+        style="@style/Widget.Material3.Button.TonalButton"
         android:layout_width="348dp"
         android:layout_height="53dp"
+        android:fontFamily="@font/quackey"
         android:text="login"
+        android:textAppearance="?android:textAppearanceMedium"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.634"
+        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_login"
-        app:layout_constraintVertical_bias="0.088" />
+        app:layout_constraintVertical_bias="0.067"
+        app:strokeColor="@color/md_theme_light_onSecondaryContainer"
+        app:strokeWidth="3dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/aloevera"
+        android:text="FEETinder"
+        android:textSize="75sp"
+        android:textColor="@color/md_theme_light_onPrimaryContainer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/back_button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="234dp"
+        android:layout_height="195dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:srcCompat="@drawable/logo" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

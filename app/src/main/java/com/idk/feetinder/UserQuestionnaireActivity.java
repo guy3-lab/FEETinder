@@ -32,6 +32,7 @@ public class UserQuestionnaireActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_questionnaire);
+        getSupportActionBar().hide();
 
         auth = FirebaseAuth.getInstance();
 
@@ -53,8 +54,6 @@ public class UserQuestionnaireActivity extends AppCompatActivity implements View
         ansD.setOnClickListener(this);
         ansE.setOnClickListener(this);
         submitBtn.setOnClickListener(this);
-
-        totalQuestionsTextView.setText("Total questions: " + totalQuestion);
 
         loadNewQuestion();
 
