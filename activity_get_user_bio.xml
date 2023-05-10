@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/md_theme_light_secondaryContainer"
+    android:layout_height="match_parent"
+    tools:context=".GetUserBioActivity">
+
+
+    <EditText
+        android:id="@+id/enter_name"
+        android:layout_width="282dp"
+        android:layout_height="67dp"
+        android:layout_marginTop="224dp"
+        android:ems="10"
+        android:hint="Your Name"
+        android:fontFamily="@font/quackey"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/enter_bio"
+        android:layout_width="364dp"
+        android:layout_height="253dp"
+        android:layout_marginBottom="112dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Your Bio"
+        android:fontFamily="@font/quackey"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_name" />
+
+    <Button
+        android:id="@+id/finish"
+        app:strokeWidth = "3dp"
+        app:strokeColor = "@color/md_theme_light_onSecondaryContainer"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:fontFamily="@font/quackey"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enter_bio"
+        app:layout_constraintVertical_bias="0.286" />
+
+    <Button
+        app:strokeWidth = "3dp"
+        app:strokeColor = "@color/md_theme_light_onSecondaryContainer"
+        style="@style/Widget.Material3.Button.TonalButton"
+        android:fontFamily="@font/quackey"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:id="@+id/back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="back"
+        app:layout_constraintBottom_toTopOf="@+id/enter_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.147" />
+
+    <ImageView
+        android:id="@+id/profile_picture"
+        android:layout_width="161dp"
+        android:layout_height="160dp"
+        app:layout_constraintBottom_toTopOf="@+id/enter_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/defaultpfp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
