@@ -1,2 +1,2 @@
 # FEETinder
-Tinder, but feet
+Main has upload files, actual app code in master branch
